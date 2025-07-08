@@ -29,12 +29,14 @@ namespace CodeFirstBlogDatabase
                 db.SaveChanges(); //this saves the changes to the database
 
                 //Display all Blogs from the database
-                var blogQuery = from b in db.Blogs //this is a LINQ query that selects all blogs from the Blogs table
-                                orderby b.Name //this orders the blogs 
-                                Console.WriteLine("\n\nAll blogs in the database:");
-                foreach (var item in blogQuery) //this is a foreach loop that iterates through each blog in the blogQuery
+                var blogQuery = from b in db.Blogs // this is a LINQ query that selects all blogs from the Blogs table
+                                orderby b.Name // this orders the blogs
+                                select b; // this selects the blog objects
+
+                Console.WriteLine("\n\nAll blogs in the database:");
+                foreach (var blog in blogQuery)
                 {
-                    Console.WriteLine($"\n{item.Name}"); //this writes the name of each blog to the console on a new line
+                    Console.WriteLine($"Blog ID: {blog.BlogId}, Name: {blog.Name}");
                 }
 
                 var postQuery = from p in db.Posts
